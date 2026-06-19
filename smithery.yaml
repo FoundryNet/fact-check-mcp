@@ -1,0 +1,20 @@
+name: "@foundrynet/fact-check"
+displayName: "Fact Verification MCP"
+description: >-
+  Fact verification for AI agents — verify a claim and get a verdict
+  (supported / disputed / unverifiable) with a 0-100 confidence and cited sources.
+  Classifies each claim's domain and cross-references the FoundryNet Data Network
+  (brand-intel, financial-signals, patent-intel, compliance) plus a general web
+  search. Also batch verification, source-credibility checks, and a daily brief.
+  Part of the FoundryNet Data Network. Free tier then x402 (USDC on Solana).
+startCommand:
+  type: http
+  url: "https://fact-check-mcp-production.up.railway.app/mcp"
+  transport: streamable-http
+  configSchema:
+    type: object
+    properties:
+      api_key:
+        type: string
+        title: "Forge billing key (optional)"
+        description: "fnet_ key to bypass the per-query x402 paywall and bill to a Forge account."

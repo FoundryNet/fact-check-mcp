@@ -1,0 +1,28 @@
+{
+  "name": "Fact Verification MCP",
+  "description": "Fact verification for agents: verify a claim and get a verdict (supported/disputed/unverifiable) with confidence and cited sources, cross-referencing the FoundryNet Data Network plus a web search. Part of the FoundryNet Data Network.",
+  "url": "https://github.com/FoundryNet/fact-check-mcp",
+  "capabilities": [
+    "fact_checking", "claim_verification", "source_credibility",
+    "batch_verification", "misinformation_detection"
+  ],
+  "network": "FoundryNet Data Network",
+  "see_also": {
+    "financial-signals-mcp": "https://financial-signals-mcp-production.up.railway.app/mcp",
+    "cyber-intel-mcp": "https://cyber-intel-mcp-production.up.railway.app/mcp",
+    "patent-intel-mcp": "https://patent-intel-mcp-production.up.railway.app/mcp",
+    "gov-contracts-mcp": "https://gov-contracts-mcp-production.up.railway.app/mcp",
+    "compliance-mcp": "https://compliance-mcp-production.up.railway.app/mcp",
+    "brand-intel-mcp": "https://brand-intel-mcp-production.up.railway.app/mcp",
+    "weather-intel-mcp": "https://weather-intel-mcp-production.up.railway.app/mcp",
+    "academic-intel-mcp": "https://academic-intel-mcp-production.up.railway.app/mcp",
+    "oss-intel-mcp": "https://oss-intel-mcp-production.up.railway.app/mcp",
+    "social-intel-mcp": "https://social-intel-mcp-production.up.railway.app/mcp"
+  },
+  "mint_protocol": "https://mint-mcp-production.up.railway.app/mcp",
+  "protocols": {
+    "mcp": { "endpoint": "https://fact-check-mcp-production.up.railway.app/mcp", "transport": "streamable-http", "tools_count": 5 },
+    "x402": { "supported": true, "currency": "USDC", "network": "solana" }
+  },
+  "contact": "hello@foundrynet.io"
+}
