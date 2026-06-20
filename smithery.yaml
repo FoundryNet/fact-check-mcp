@@ -1,12 +1,34 @@
-name: "@foundrynet/fact-check"
-displayName: "Fact Verification MCP"
+name: "@foundrynet/fact-check-mcp"
+displayName: "FoundryNet Fact Verification"
 description: >-
-  Fact verification for AI agents — verify a claim and get a verdict
-  (supported / disputed / unverifiable) with a 0-100 confidence and cited sources.
-  Classifies each claim's domain and cross-references the FoundryNet Data Network
-  (brand-intel, financial-signals, patent-intel, compliance) plus a general web
-  search. Also batch verification, source-credibility checks, and a daily brief.
-  Part of the FoundryNet Data Network. Free tier then x402 (USDC on Solana).
+  Claim verification using cross-network source checking with confidence scoring. Queries sibling FoundryNet servers as authoritative sources.
+icon: "✅"
+homepage: "https://foundrynet.io"
+repository: "https://github.com/FoundryNet/fact-check-mcp"
+license: "MIT"
+categories:
+  - research
+  - data
+  - verification
+tags:
+  - fact-checking
+  - claim-verification
+  - source-verification
+  - truth-checking
+  - content-verification
+keywords:
+  - fact-checking
+  - claim-verification
+  - source-verification
+  - truth-checking
+  - content-verification
+attestation:
+  protocol: "MINT Protocol"
+  verified_outputs: true
+  live_feed: "https://mint.foundrynet.io/feed"
+network:
+  name: "FoundryNet Data Network"
+  servers: 17
 startCommand:
   type: http
   url: "https://fact-check-mcp-production.up.railway.app/mcp"
