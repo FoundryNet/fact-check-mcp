@@ -154,11 +154,19 @@ _KEYWORDS = ["fact checking", "fact verification", "claim verification", "misinf
              "source credibility", "citation checking", "verification"]
 
 _AGENT_CARD = {
-    "name": "Fact Verification MCP", "description": _DESC,
-    "url": "https://github.com/FoundryNet/fact-check-mcp",
-    "capabilities": ["fact_checking", "claim_verification", "source_credibility",
-                     "batch_verification", "misinformation_detection"],
+    "name": "Fact Verification MCP",
+    "description": ("Verify factual claims with a verdict, confidence score, and cited "
+                    "sources — cross-referencing web search and the FoundryNet data "
+                    "network; supports batch verification and source-trust checks."),
+    "url": config.PUBLIC_MCP_URL,
+    "version": "1.0.0",
+    "capabilities": {"tools": ["verify_claim", "batch_verify", "source_check",
+                               "daily_brief", "mint_info"]},
+    "provider": {"name": "FoundryNet", "url": "https://foundrynet.io"},
     "network": "FoundryNet Data Network",
+    "attestation": {"protocol": "MINT Protocol",
+                    "endpoint": "https://mint-mcp-production.up.railway.app/mcp",
+                    "verified_outputs": True, "live_feed": "https://mint.foundrynet.io/feed", "feed_api": "https://mint-mcp-production.up.railway.app/v1/feed"},
     "protocols": {"mcp": {"endpoint": config.PUBLIC_MCP_URL, "transport": "streamable-http", "tools_count": 5},
                   "x402": {"supported": True, "currency": "USDC", "network": "solana"}},
     "see_also": config.SISTER_SERVERS, "mint_protocol": config.MINT_MCP_URL,
@@ -204,6 +212,31 @@ async def server_card(request: Request) -> JSONResponse:
         "pricing": {"model": "metered",
                     "free_tier": f"{config.FREE_TIER_DAILY} verifications/day + free mint_info",
                     "paid_from": f"{config.PRICE_SOURCE_CHECK} USDC per query (x402)"},
+    }, headers={"Cache-Control": "public, max-age=300"})
+
+
+_FREE_TOOL_NAMES = {"mint_info", "macro_dashboard", "cve_detail", "detail",
+                    "domain_age", "convert", "rates", "market_overview", "price",
+                    "quote", "batch_quote", "sector_performance"}
+
+
+@mcp.custom_route("/.well-known/mcp.json", methods=["GET"])
+async def wellknown_mcp_json(request: Request) -> JSONResponse:
+    """Machine-discovery card (emerging standard) for AI clients/crawlers."""
+    live = await _live_tools()
+    names = [t["name"] for t in live]
+    return JSONResponse({
+        "name": _AGENT_CARD["name"],
+        "description": _AGENT_CARD["description"],
+        "url": config.PUBLIC_MCP_URL,
+        "transport": ["streamable-http"],
+        "tools": names,
+        "pricing": {"model": "per-query", "free_tier": True,
+                    "paid_tools": [n for n in names if n not in _FREE_TOOL_NAMES]},
+        "attestation": {"enabled": True, "protocol": "MINT Protocol",
+                        "feed": "https://mint.foundrynet.io/feed"},
+        "network": {"name": "FoundryNet Data Network", "servers": 17,
+                    "homepage": "https://foundrynet.io"},
     }, headers={"Cache-Control": "public, max-age=300"})
 
 

@@ -11,9 +11,9 @@ def register(mcp) -> None:
         agent_id: Optional[str] = None,
         payment_tx: Optional[str] = None,
     ) -> dict:
-        """The curated daily fact-check brief — the day's verification signals in one
-        package: the top disputed claims, the most-verified claims, the trending
-        topics being checked, and counts by verdict + domain. Each brief carries a
+        """Get the curated daily fact-check brief — the day's claim-verification signals
+        in one package: the top disputed claims, the most-verified claims, the
+        trending topics being checked, and counts by verdict + domain. Each brief carries a
         MINT provenance attestation so a buyer can verify it was produced by this
         server, unaltered.
 

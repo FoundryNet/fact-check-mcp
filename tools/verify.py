@@ -12,12 +12,12 @@ def register(mcp) -> None:
         agent_id: Optional[str] = None,
         payment_tx: Optional[str] = None,
     ) -> dict:
-        """Verify a factual claim. Classifies the claim's domain (company / finance /
-        patents / regulation), cross-references the relevant FoundryNet Data Network
-        source plus a general web search, and returns a verdict
-        (supported | disputed | unverifiable) with a 0-100 confidence, the cited
-        sources, and a short explanation. Results carry a MINT provenance attestation
-        and are cached for 24h.
+        """Verify a factual claim and return a verdict, confidence score, and cited
+        sources. Classifies the claim's domain (company / finance / patents /
+        regulation), cross-references web search and the relevant FoundryNet data
+        network source, and returns a verdict (supported | disputed | unverifiable)
+        with a 0-100 confidence, the cited sources, and a short explanation. Results
+        carry a MINT provenance attestation and are cached for 24h.
 
         PAID: $0.02 USDC per verification after a daily free allowance (10/day). On a
         402, pay the returned Solana memo and re-call with the SAME args plus

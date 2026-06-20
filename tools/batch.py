@@ -11,10 +11,11 @@ def register(mcp) -> None:
         agent_id: Optional[str] = None,
         payment_tx: Optional[str] = None,
     ) -> dict:
-        """Verify many factual claims in one call. Returns an array of verify_claim
-        results (verdict + confidence + sources + explanation) plus the batch
-        pricing, with a MINT provenance attestation over the whole batch. Each claim
-        is cached for 24h, so repeats are cheap.
+        """Verify many factual claims in one batch fact-check call. Returns an array of
+        verify_claim results (verdict + confidence + cited sources + explanation),
+        each cross-referencing web search and the FoundryNet data network, plus the
+        batch pricing and a MINT provenance attestation over the whole batch. Each
+        claim is cached for 24h, so repeats are cheap.
 
         PAID: $0.01 USDC per claim, minimum $0.05 USDC per batch, after the daily
         free allowance (10/day). On a 402, pay the returned Solana memo and re-call

@@ -11,10 +11,10 @@ def register(mcp) -> None:
         agent_id: Optional[str] = None,
         payment_tx: Optional[str] = None,
     ) -> dict:
-        """Assess the credibility of a source URL — domain age (via RDAP), trust
-        signals, bias indicators, and publication history. Use it to weight whether a
-        citation is trustworthy. Results carry a MINT provenance attestation and are
-        cached for 24h.
+        """Check a source URL's credibility and trustworthiness for source verification
+        — domain age (via RDAP), trust signals, bias indicators, and publication
+        history. Use it to weight whether a citation is trustworthy. Results carry a
+        MINT provenance attestation and are cached for 24h.
 
         PAID: $0.01 USDC per check after the daily free allowance (10/day). On a 402,
         pay the returned Solana memo and re-call with the SAME args plus

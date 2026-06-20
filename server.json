@@ -2,8 +2,12 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.FoundryNet/fact-check-mcp",
   "title": "Fact Verification MCP",
-  "description": "Verify claims with verdict, confidence & cited sources; batch verify, source checks, daily brief.",
+  "description": "Verify factual claims with a verdict, confidence score, and cited sources — cross-referencing web search and the FoundryNet data network; supports batch verification and source-trust checks.",
   "version": "1.0.0",
+  "homepage": "https://foundrynet.io",
   "repository": { "url": "https://github.com/FoundryNet/fact-check-mcp", "source": "github" },
+  "categories": ["verification", "research", "data", "trust"],
+  "tags": ["fact verification", "claim checking", "source verification", "truth checking", "content verification"],
+  "keywords": ["fact verification", "claim checking", "source verification", "truth checking", "content verification"],
   "remotes": [ { "type": "streamable-http", "url": "https://fact-check-mcp-production.up.railway.app/mcp" } ]
 }

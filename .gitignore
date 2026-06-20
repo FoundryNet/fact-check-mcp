@@ -3,5 +3,5 @@ __pycache__/
 .env
 .env.*
 .railway/
-supabase/.temp/
-.DS_Store
+*.log
+logs/

@@ -105,3 +105,46 @@ def attest_data(data: dict, work_type: str = "analysis", summary: str = "") -> d
     except Exception as e:  # noqa: BLE001
         logger.warning(f"MINT attestation failed: {e}")
         return {"mint_verified": False}
+
+
+# ── Live network feed surfacing (added 2026-06-20) ────────────────────────────
+import time as _feed_time
+
+_feed_cache = {"ts": 0.0, "count": None}
+LIVE_FEED_URL = "https://mint.foundrynet.io/feed"
+FEED_API_URL = _SERVER_URL + "/v1/feed"
+SERVERS_OPERATIONAL = "17/17"
+
+
+def todays_attestation_count():
+    """Best-effort count of today's attestations from the MINT live feed (cached
+    5 min). Returns an int, or None if unavailable. Never raises."""
+    now = _feed_time.time()
+    if _feed_cache["count"] is not None and (now - _feed_cache["ts"]) < 300:
+        return _feed_cache["count"]
+    try:
+        r = httpx.get(FEED_API_URL, params={"limit": 500}, timeout=4)
+        data = r.json()
+        items = data.get("attestations") if isinstance(data, dict) else None
+        if isinstance(items, list):
+            today = _feed_time.strftime("%Y-%m-%d", _feed_time.gmtime())
+            cnt = sum(1 for a in items if str(a.get("created_at", "")).startswith(today))
+            _feed_cache.update(ts=now, count=cnt)
+            return cnt
+    except Exception:  # noqa: BLE001
+        pass
+    return _feed_cache["count"]
+
+
+def network_heartbeat() -> dict:
+    """Minimal live-network heartbeat appended to paid tool responses."""
+    return {"attestations_today": todays_attestation_count(),
+            "servers_up": SERVERS_OPERATIONAL,
+            "live_feed": LIVE_FEED_URL}
+
+
+def network_feed_block() -> dict:
+    """Feed-surfacing block merged into mint_info responses."""
+    return {"live_feed": LIVE_FEED_URL, "feed_api": FEED_API_URL,
+            "attestations_today": todays_attestation_count(),
+            "servers_operational": SERVERS_OPERATIONAL}
